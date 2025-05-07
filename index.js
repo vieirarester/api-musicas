@@ -2,10 +2,9 @@ const express = require('express');
 const app = express();
 const PORT = 8080;
 
-// Importa as rotas
+app.use(express.json());
 const musicasRoutes = require('./routes/musicas');
 
-// Usando rotas
 app.use('/api/musicas', musicasRoutes);
 
 // Inicia o servidor
