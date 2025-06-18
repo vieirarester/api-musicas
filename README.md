@@ -2,7 +2,14 @@
 
 ---
 
-## 🚀 Como executar
+## 🚀 CI/CD com GitHub Actions
+
+Este projeto contém dois workflows:
+
+- **Push Workflow**: Executado a cada push nas branches `main` ou `feat/*`.
+- **Pull Request Workflow**: Executado a cada novo Pull Request direcionado à `main`.
+
+## ▶️ Como executar
 
 ### 1. Clonar o repositório
 
