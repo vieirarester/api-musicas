@@ -1,0 +1,28 @@
+name: Node.js CI - Pull Request Event
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonando o repositorio e trocando para branch correta
+        uses: actions/checkout@v4
+    
+      - name: Instalando o Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+    
+      - name: Checando a versao instalada do Node.js
+        run: node -v
+        
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Executar o projeto
+        run: node index.js
