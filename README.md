@@ -2,14 +2,15 @@
 
 ---
 
-## 🚀 CI/CD com GitHub Actions
+## 🛠️ Pré-requisitos
 
-Este projeto contém dois workflows:
+- [Node.js (16+)](https://nodejs.org/pt)
+- [Git](https://git-scm.com/downloads)
+- [Vagrant](https://developer.hashicorp.com/vagrant/install)
+- [VirtualBox](https://www.virtualbox.org/wiki/Downloads) (se for usar a VM)
+- [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible) (para provisionar via playbook)
 
-- **Push Workflow**: Executado a cada push nas branches `main` ou `feat/*`.
-- **Pull Request Workflow**: Executado a cada novo Pull Request direcionado à `main`.
-
-## ▶️ Como executar
+## ▶️ Como executar localmente
 
 ### 1. Clonar o repositório
 
@@ -40,23 +41,30 @@ Este projeto também pode ser executado dentro de um ambiente virtualizado com V
 📁 Estrutura da Infraestrutura
 
 - Ansible (192.168.56.10): Nó de controle Ansible
-- VM2 (192.168.56.20): Máquina gerenciada onde a aplicação será instalada
+- VM2 (192.168.56.101): Máquina gerenciada onde a aplicação será instalada
 
 🛠️ Etapas para executar com Ansible
 ```
-cd /vagrant                                       -> acessa a pasta dentro do projeto
-vagrant up                                        -> levanta as VMs
-vagrant ssh ansible                               -> acessa o nó de controle
-cd /vagrant/data                                  -> acessa a pasta do playbook
-ansible-playbook -i inventory configura-node.yaml -> executa os comando na VMs através do playbook
+cd /vagrant                                       # acessa a pasta dentro do projeto
+vagrant up                                        # levanta as VMs
+vagrant ssh ansible                               # acessa o nó de controle
+cd /vagrant/data                                  # acessa a pasta do playbook
+ansible-playbook -i inventory configura-node.yaml # executa os comando na VMs através do playbook
 ```
 
 ✅ Teste da aplicação via Ansible
 Para verificar se a aplicação está rodando corretamente após o playbook, execute na VM1 (ansible):
 
 ```
-curl http://192.168.56.20:8080/api/musicas
+curl http://192.168.56.101:8080/api/musicas
 ```
+
+## 🚀 CI/CD com GitHub Actions
+
+Este projeto contém dois workflows:
+
+- **Push Workflow**: Executado a cada push nas branches `main` ou `feat/*`.
+- **Pull Request Workflow**: Executado a cada novo Pull Request direcionado à `main`.
 
 ## 🔄 Workflow utilizado: GitHub Flow
 

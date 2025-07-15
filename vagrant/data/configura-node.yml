@@ -8,10 +8,12 @@
         state: present
         update_cache: yes
 
-    - name: Adicionar repositório do Node.js 18
-      shell: curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+    - name: Adicionar repositório do Node.js 16
+      shell: curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+      args:
+        warn: false
 
-    - name: Instalar Node.js
+    - name: Instalar Node.js 16
       apt:
         name: nodejs
         state: present
@@ -20,6 +22,7 @@
       git:
         repo: https://github.com/vieirarester/api-musicas.git
         dest: /home/vagrant/api-musicas
+        update: yes
 
     - name: Instalar dependências do Node.js
       npm:
