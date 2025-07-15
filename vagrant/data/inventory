@@ -1,2 +1,2 @@
 [servidores]
-192.168.56.20 ansible_ssh_private_key=/vagrant/.vagrant/machines/vm2/virtualbox/private_key
+192.168.56.101
