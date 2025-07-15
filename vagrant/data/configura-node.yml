@@ -1,0 +1,31 @@
+- name: Configurar aplicação Node.js
+  hosts: servidores
+  become: yes
+  tasks:
+    - name: Instalar curl
+      apt:
+        name: curl
+        state: present
+        update_cache: yes
+
+    - name: Adicionar repositório do Node.js 18
+      shell: curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+
+    - name: Instalar Node.js
+      apt:
+        name: nodejs
+        state: present
+
+    - name: Clonar repositório da aplicação
+      git:
+        repo: https://github.com/vieirarester/api-musicas.git
+        dest: /home/vagrant/api-musicas
+
+    - name: Instalar dependências do Node.js
+      npm:
+        path: /home/vagrant/api-musicas
+
+    - name: Iniciar aplicação Node.js em background
+      shell: nohup node index.js > output.log 2>&1 &
+      args:
+        chdir: /home/vagrant/api-musicas

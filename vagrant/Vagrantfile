@@ -1,0 +1,32 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "ubuntu/bionic64"
+
+  # VM1 - nó de controle do ansible
+  config.vm.define "ansible" do |ansible|
+    ansible.vm.network "private_network", ip: "192.168.56.10"
+    ansible.vm.network "forwarded_port", guest: 22, host: 2223, id: "ssh"
+    ansible.vm.synced_folder "./data", "/vagrant_data"
+    ansible.vm.provider "virtualbox" do |vb|
+      vb.memory = 512
+    end
+    ansible.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      apt install -y software-properties-common
+      add-apt-repository --yes --update ppa:ansible/ansible
+      apt-get install -y ansible
+      SHELL
+  end
+
+  # VM2 - nó gerenciado
+  config.vm.define "vm2" do |vm2|
+    vm2.vm.network "private_network", ip: "192.168.56.20"
+
+    vm2.vm.provider "virtualbox" do |vb|
+      vb.memory = 1024
+    end
+  end
+end
