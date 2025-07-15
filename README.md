@@ -33,6 +33,31 @@ A API pode ser acessada em: <http://localhost:8080/api/musicas>
 
 Use ferramentas como [Postman](https://www.postman.com/) para testar.
 
+## ⚙️ Provisionamento com Vagrant e Ansible
+
+Este projeto também pode ser executado dentro de um ambiente virtualizado com Vagrant e provisionado automaticamente com Ansible.
+
+📁 Estrutura da Infraestrutura
+
+- Ansible (192.168.56.10): Nó de controle Ansible
+- VM2 (192.168.56.20): Máquina gerenciada onde a aplicação será instalada
+
+🛠️ Etapas para executar com Ansible
+```
+cd /vagrant                                       -> acessa a pasta dentro do projeto
+vagrant up                                        -> levanta as VMs
+vagrant ssh ansible                               -> acessa o nó de controle
+cd /vagrant/data                                  -> acessa a pasta do playbook
+ansible-playbook -i inventory configura-node.yaml -> executa os comando na VMs através do playbook
+```
+
+✅ Teste da aplicação via Ansible
+Para verificar se a aplicação está rodando corretamente após o playbook, execute na VM1 (ansible):
+
+```
+curl http://192.168.56.20:8080/api/musicas
+```
+
 ## 🔄 Workflow utilizado: GitHub Flow
 
 Foi optado pelo **GitHub Flow** por ser um fluxo simples, ideal para projetos pequenos com poucos desenvolvedores. Ele nos permite:
